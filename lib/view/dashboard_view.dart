@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:oui/controller/FirestoreHepler.dart';
-import 'package:oui/controller/liste_personne.dart';
+import 'package:oui/view/liste_personne.dart';
 import 'package:oui/globale.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';

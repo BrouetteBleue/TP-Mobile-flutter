@@ -3,6 +3,8 @@ import 'package:oui/controller/FirestoreHepler.dart';
 import 'package:oui/globale.dart';
 import 'package:oui/model/utilisateur.dart';
 import 'package:flutter/material.dart';
+import 'package:oui/view/chat_view.dart';
+import 'package:oui/view/userList_view.dart';
 
 class ListPersonn extends StatefulWidget {
   const ListPersonn({Key? key}) : super(key: key);
@@ -17,6 +19,10 @@ class _ListPersonnState extends State<ListPersonn> {
     return StreamBuilder<QuerySnapshot>(
         stream: FirestoreHelper().cloudUsers.snapshots(),
         builder: (context, snap) {
+          if (!snap.hasData ||
+              snap.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          }
           List documents = snap.data?.docs ?? [];
           if (documents.isEmpty) {
             return const Center(child: CircularProgressIndicator.adaptive());
@@ -34,7 +40,14 @@ class _ListPersonnState extends State<ListPersonn> {
                       child: ListTile(
                         onTap: () {
                           //ouvrir une nouvller page de chat
-                          print("message");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                  currentUserId: monUtilisateur.id,
+                                  selectedUserId: otherUser.id),
+                            ),
+                          );
                         },
                         leading: CircleAvatar(
                           radius: 30,

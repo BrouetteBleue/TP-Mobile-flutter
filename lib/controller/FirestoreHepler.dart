@@ -45,6 +45,16 @@ class FirestoreHelper {
     return Utilisateur(snapshots);
   }
 
+  //get all users
+  Future<List<Utilisateur>> getAllUsers() async {
+    QuerySnapshot snapshots = await cloudUsers.get();
+    List<Utilisateur> list = [];
+    snapshots.docs.forEach((element) {
+      list.add(Utilisateur(element));
+    });
+    return list;
+  }
+
 //se connecter à un compte
   Future<Utilisateur> Connect(String email, String password) async {
     UserCredential credential =
