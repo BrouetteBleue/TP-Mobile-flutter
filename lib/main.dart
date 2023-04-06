@@ -1,8 +1,8 @@
-import 'package:digitaldschool/controller/FirestoreHepler.dart';
-import 'package:digitaldschool/controller/home_page.dart';
-import 'package:digitaldschool/controller/permission_helper.dart';
-import 'package:digitaldschool/globale.dart';
-import 'package:digitaldschool/view/dashboard_view.dart';
+import 'package:oui/controller/FirestoreHepler.dart';
+import 'package:oui/controller/home_page.dart';
+import 'package:oui/controller/permission_helper.dart';
+import 'package:oui/globale.dart';
+import 'package:oui/view/dashboard_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-
   final String title;
 
   @override
@@ -49,72 +47,60 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //variables
   TextEditingController mail = TextEditingController();
-  TextEditingController  password = TextEditingController();
-  TextEditingController  prenom = TextEditingController();
-  TextEditingController  nom = TextEditingController();
-  List<bool> selection = [true,false];
-
-
+  TextEditingController password = TextEditingController();
+  TextEditingController prenom = TextEditingController();
+  TextEditingController nom = TextEditingController();
+  List<bool> selection = [true, false];
 
   //Méthode
-  popUp(){
+  popUp() {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context){
-          if (defaultTargetPlatform == TargetPlatform.iOS){
+        builder: (context) {
+          if (defaultTargetPlatform == TargetPlatform.iOS) {
             return CupertinoAlertDialog(
               title: const Text("Erreur"),
-              content: const Text("Votre email et/ou votre mot de passe sont incorrectes"),
+              content: const Text(
+                  "Votre email et/ou votre mot de passe sont incorrectes"),
               actions: [
                 TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("ok")
-                )
+                    child: const Text("ok"))
               ],
-
+            );
+          } else {
+            return AlertDialog(
+              title: const Text("Erreur"),
+              content: const Text(
+                  "Votre email et/ou votre mot de passe sont incorrectes"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("ok"))
+              ],
             );
           }
-          else
-            {
-              return AlertDialog(
-                title: const Text("Erreur"),
-                content: const Text("Votre email et/ou votre mot de passe sont incorrectes"),
-                actions: [
-                  TextButton(
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                      child: const Text("ok")
-                  )
-                ],
-              );
-            }
-        }
-    );
+        });
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: AppBar(
-
-        title: const Text("Digital Campus"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: bodyPage(),
-      )
-    );
+        appBar: AppBar(
+          title: const Text("Digital Campus"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: bodyPage(),
+        ));
   }
 
-
-  Widget bodyPage(){
+  Widget bodyPage() {
     //image
     //entrer mail
     //entrer le mot de passe
@@ -129,145 +115,118 @@ class _MyHomePageState extends State<MyHomePage> {
     //Texfield
     //Icon
     //listView
-     return Column(
-
+    return Column(
       children: [
         ToggleButtons(
-          selectedColor: Colors.green,
-          onPressed: (int choix){
-            if(choix == 0){
-              setState(() {
-                selection[0]=true;
-                selection[1]= false;
-              });
-
-            }
-            else
-              {
+            selectedColor: Colors.green,
+            onPressed: (int choix) {
+              if (choix == 0) {
                 setState(() {
-                  selection[0]=false;
-                  selection[1]= true;
+                  selection[0] = true;
+                  selection[1] = false;
                 });
-
+              } else {
+                setState(() {
+                  selection[0] = false;
+                  selection[1] = true;
+                });
               }
-          },
+            },
             isSelected: selection,
-            children: const [
-              Text("Connexion"),
-              Text("Inscription")
-            ]
-        ),
+            children: const [Text("Connexion"), Text("Inscription")]),
         //image
-        const SizedBox(height:10),
-        Image.network("https://www.auto-moto.com/wp-content/uploads/sites/9/2022/02/01-peugeot-208-750x410.jpg"),
-        const SizedBox(height:10),
-
+        const SizedBox(height: 10),
+        Image.network(
+            "https://www.auto-moto.com/wp-content/uploads/sites/9/2022/02/01-peugeot-208-750x410.jpg"),
+        const SizedBox(height: 10),
 
         //prenom
 
-        (selection[0] == false)?TextField(
-          controller: prenom,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              hintText: "Entrer votre prénom"
-          ),
-        ):Container(),
-        const SizedBox(height:10),
-
-
+        (selection[0] == false)
+            ? TextField(
+                controller: prenom,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    hintText: "Entrer votre prénom"),
+              )
+            : Container(),
+        const SizedBox(height: 10),
 
         //nom
 
-        (selection[0]==false)?TextField(
-          controller: nom,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              hintText: "Entrer votre nom"
-          ),
-        ):Container(),
-        const SizedBox(height:10),
+        (selection[0] == false)
+            ? TextField(
+                controller: nom,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    hintText: "Entrer votre nom"),
+              )
+            : Container(),
+        const SizedBox(height: 10),
 
         //mail
         TextField(
           controller: mail,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20)
-            ),
-            hintText: "Entrer votre mail"
-          ),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              hintText: "Entrer votre mail"),
         ),
-        const SizedBox(height:10),
-
+        const SizedBox(height: 10),
 
         //password
         TextField(
           controller: password,
           obscureText: true,
           decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              hintText: "Entrer votre password"
-          ),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              hintText: "Entrer votre password"),
         ),
-        const SizedBox(height:10),
-
+        const SizedBox(height: 10),
 
         //bouton
         ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder()
-          ),
-            onPressed: (){
-
-              if(selection[0]== false){
+            style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+            onPressed: () {
+              if (selection[0] == false) {
                 //si on en mode inscription
-                FirestoreHelper().Inscription(mail.text, password.text, nom.text, prenom.text).then((value) {
+                FirestoreHelper()
+                    .Inscription(
+                        mail.text, password.text, nom.text, prenom.text)
+                    .then((value) {
                   //si la méthode fonctionne bien
                   setState(() {
                     monUtilisateur = value;
                   });
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context){
-                        return DashBoardView(mail: mail.text, password: password.text);
-                      }
-                  ));
-
-
-                }).catchError((onError){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return DashBoardView(
+                        mail: mail.text, password: password.text);
+                  }));
+                }).catchError((onError) {
                   //si on constate une erreur
                   popUp();
-
+                });
+              } else {
+                //si en mode connexion
+                FirestoreHelper()
+                    .Connect(mail.text, password.text)
+                    .then((value) {
+                  setState(() {
+                    monUtilisateur = value;
+                  });
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return DashBoardView(
+                        mail: mail.text, password: password.text);
+                  }));
+                }).catchError((onError) {
+                  popUp();
                 });
               }
-              else
-                {
-                  //si en mode connexion
-                  FirestoreHelper().Connect(mail.text, password.text).then((value){
-                    setState(() {
-                      monUtilisateur = value;
-                    });
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context){
-                          return DashBoardView(mail: mail.text, password: password.text);
-                        }
-                    ));
-                  }).catchError((onError){
-                    popUp();
-                  });
-                }
-
-
-
-
             },
-            child: const Text("Validation")
-        )
+            child: const Text("Validation"))
       ],
     );
   }

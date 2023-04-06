@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digitaldschool/globale.dart';
+import 'package:oui/globale.dart';
 
 class Utilisateur {
   //attributs
@@ -17,44 +17,29 @@ class Utilisateur {
     return name + " " + lastname;
   }
 
-
-
-
-
-
-
   //un ou des constructeurs
- Utilisateur(DocumentSnapshot snapshot){
-   id = snapshot.id;
-   Map<String,dynamic> map = snapshot.data()as Map<String,dynamic>;
-   lastname = map['NOM'];
-   name = map['PRENOM'];
-   email = map['EMAIL'];
-   avatar = map["AVATAR"] ?? defaultImage;
-   favoris = map["FAVORIS"] ?? [];
-   Timestamp? timeprovisoire = map["BIRTHDAY"];
-   if(timeprovisoire == null){
-     birthday = DateTime.now();
-   }
-   else
-     {
-       birthday = timeprovisoire.toDate();
-     }
+  Utilisateur(DocumentSnapshot snapshot) {
+    id = snapshot.id;
+    Map<String, dynamic> map = snapshot.data() as Map<String, dynamic>;
+    lastname = map['NOM'];
+    name = map['PRENOM'];
+    email = map['EMAIL'];
+    avatar = map["AVATAR"] ?? defaultImage;
+    favoris = map["FAVORIS"] ?? [];
+    Timestamp? timeprovisoire = map["BIRTHDAY"];
+    if (timeprovisoire == null) {
+      birthday = DateTime.now();
+    } else {
+      birthday = timeprovisoire.toDate();
+    }
+  }
 
- }
-
-
- Utilisateur.empty(){
-   id = "";
-   lastname ="";
-   name ="";
-   email ="";
- }
-
-
-
+  Utilisateur.empty() {
+    id = "";
+    lastname = "";
+    name = "";
+    email = "";
+  }
 
   //méthode
-
-
 }

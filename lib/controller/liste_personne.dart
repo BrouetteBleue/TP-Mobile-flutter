@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digitaldschool/controller/FirestoreHepler.dart';
-import 'package:digitaldschool/globale.dart';
-import 'package:digitaldschool/model/utilisateur.dart';
+import 'package:oui/controller/FirestoreHepler.dart';
+import 'package:oui/globale.dart';
+import 'package:oui/model/utilisateur.dart';
 import 'package:flutter/material.dart';
 
 class ListPersonn extends StatefulWidget {
@@ -15,28 +15,24 @@ class _ListPersonnState extends State<ListPersonn> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreHelper().cloudUsers.snapshots(),
-        builder: (context,snap){
-        List documents = snap.data?.docs ?? [];
-        if(documents.isEmpty){
-          return const Center(
-              child: CircularProgressIndicator.adaptive()
-          );
-        } else
-          {
+        stream: FirestoreHelper().cloudUsers.snapshots(),
+        builder: (context, snap) {
+          List documents = snap.data?.docs ?? [];
+          if (documents.isEmpty) {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          } else {
             return ListView.builder(
-              itemCount: documents.length,
-                itemBuilder: (context,index) {
+                itemCount: documents.length,
+                itemBuilder: (context, index) {
                   Utilisateur otherUser = Utilisateur(documents[index]);
                   if (monUtilisateur.id == otherUser.id) {
                     return Container();
-                  }
-                  else {
+                  } else {
                     return Card(
                       elevation: 5,
                       color: Colors.purple,
                       child: ListTile(
-                        onTap: (){
+                        onTap: () {
                           //ouvrir une nouvller page de chat
                           print("message");
                         },
@@ -49,12 +45,8 @@ class _ListPersonnState extends State<ListPersonn> {
                       ),
                     );
                   }
-                }
-            );
+                });
           }
-
-        }
-    );
+        });
   }
 }
-

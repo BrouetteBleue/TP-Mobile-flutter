@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.dissingardjino" "\0"
-            VALUE "FileDescription", "digitaldschool" "\0"
+            VALUE "FileDescription", "oui" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "digitaldschool" "\0"
+            VALUE "InternalName", "oui" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.dissingardjino. All rights reserved." "\0"
-            VALUE "OriginalFilename", "digitaldschool.exe" "\0"
-            VALUE "ProductName", "digitaldschool" "\0"
+            VALUE "OriginalFilename", "oui.exe" "\0"
+            VALUE "ProductName", "oui" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
