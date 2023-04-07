@@ -45,6 +45,7 @@ class _UsersListPageState extends State<UsersListPage> {
                 title: Text(user.fullName),
                 subtitle: Text(user.email),
                 onTap: () {
+                  Navigator.pushNamed(context, "chatPage");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

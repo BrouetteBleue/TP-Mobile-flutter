@@ -40,14 +40,18 @@ class _ListPersonnState extends State<ListPersonn> {
                       child: ListTile(
                         onTap: () {
                           //on ouvre la page de chat
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                  currentUserId: monUtilisateur.id,
-                                  selectedUserId: otherUser.id),
-                            ),
-                          );
+                          Navigator.pushNamed(context, "chatPage", arguments: {
+                            "currentUserId": monUtilisateur.id,
+                            "selectedUserId": otherUser.id
+                          });
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ChatPage(
+                          //         currentUserId: monUtilisateur.id,
+                          //         selectedUserId: otherUser.id),
+                          //   ),
+                          // );
                         },
                         leading: CircleAvatar(
                           radius: 30,

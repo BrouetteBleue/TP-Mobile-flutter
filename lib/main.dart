@@ -3,6 +3,7 @@ import 'package:oui/controller/home_page.dart';
 import 'package:oui/controller/permission_helper.dart';
 import 'package:oui/globale.dart';
 import 'package:oui/view/dashboard_view.dart';
+import 'package:oui/view/chat_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      onGenerateRoute: (settings) {
+        // meilleure manière de gérer les routes , on les déclares toutes ici
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const HomePage());
+
+          case '/chatPage':
+            String currentUser = settings.arguments
+                as String; // on récupère les arguments passés à la route dans la navigation
+            String otherUser = settings.arguments as String;
+
+            return MaterialPageRoute(
+                builder: (context) => ChatPage(
+                      // on remplis le constructeur de la page de chat avec les arguments passés à la route
+                      currentUserId: currentUser,
+                      selectedUserId: otherUser,
+                    ));
+
+          // default
+          default:
+            return MaterialPageRoute(builder: (context) => const HomePage());
+        }
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
