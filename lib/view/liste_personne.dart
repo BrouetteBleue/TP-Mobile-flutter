@@ -39,7 +39,7 @@ class _ListPersonnState extends State<ListPersonn> {
                       color: Colors.purple,
                       child: ListTile(
                         onTap: () {
-                          //ouvrir une nouvller page de chat
+                          //on ouvre la page de chat
                           Navigator.push(
                             context,
                             MaterialPageRoute(

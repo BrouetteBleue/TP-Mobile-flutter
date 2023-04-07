@@ -31,6 +31,7 @@ class _ChatPageState extends State<ChatPage> {
                 widget
                     .selectedUserId) // widget fait référence a la classe ChatPage
             .listen((newMessages) {
+      // listen = méthode qui permet de récupérer les données d'un objet stream
       setState(() {
         messages = newMessages;
       });
@@ -52,21 +53,48 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          // Messages list
+          // Messages list TOUT LE EXANDED LA C DU DESIGN POUR LE CHAT
           Expanded(
             child: ListView.builder(
+              reverse: true,
               itemCount: messages.length,
               itemBuilder: (context, index) {
-                Message message = messages[index];
-                bool isSentByMe = message.senderId == widget.currentUserId;
+                final message = messages[index];
+                final isMe = message.senderId == widget.currentUserId;
 
-                // Personnalisez l'apparence des messages en fonction de `isSentByMe`
-                // Par exemple, vous pouvez aligner les messages envoyés par l'utilisateur à droite
-                // et les messages de l'autre utilisateur à gauche
-                return ListTile(
-                  title: Text(message.content),
-                  subtitle: Text(message.timestamp.toString()),
-                  trailing: isSentByMe ? Icon(Icons.done_all) : null,
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment:
+                        isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                    children: [
+                      if (!isMe)
+                        CircleAvatar(
+                          backgroundImage: NetworkImage("otherUser.avatar!"),
+                        ),
+                      Flexible(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: isMe ? Colors.blueAccent : Colors.grey[300],
+                          ),
+                          child: Text(
+                            message.content,
+                            style: TextStyle(
+                              color: isMe ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (isMe)
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage("monUtilisateur.avatar!"),
+                        ),
+                    ],
+                  ),
                 );
               },
             ),
