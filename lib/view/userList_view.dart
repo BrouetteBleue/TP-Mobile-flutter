@@ -46,15 +46,15 @@ class _UsersListPageState extends State<UsersListPage> {
                 subtitle: Text(user.email),
                 onTap: () {
                   Navigator.pushNamed(context, "chatPage");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatPage(
-                        currentUserId: widget.currentUserId,
-                        selectedUserId: user.id,
-                      ),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ChatPage(
+                  //       currentUserId: widget.currentUserId,
+                  //       selectedUserId: user.id,
+                  //     ),
+                  //   ),
+                  //);
                 },
               );
             },

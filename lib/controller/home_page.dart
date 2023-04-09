@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    final List<Locale> systemLocales = WidgetsBinding.instance.window.locales;
     animatation =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..forward()
@@ -23,7 +24,8 @@ class _HomePageState extends State<HomePage>
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.pushNamed(context, "/");
+              print(systemLocales);
+              Navigator.pushNamed(context, "/login");
             }
           });
 

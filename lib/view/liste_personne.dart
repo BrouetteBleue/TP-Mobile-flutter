@@ -40,7 +40,8 @@ class _ListPersonnState extends State<ListPersonn> {
                       child: ListTile(
                         onTap: () {
                           //on ouvre la page de chat
-                          Navigator.pushNamed(context, "chatPage", arguments: {
+                          Navigator.pushNamed(context, "/chatPage", arguments: {
+                            // on oublie pas le / avant le nom de la page
                             "currentUserId": monUtilisateur.id,
                             "selectedUserId": otherUser.id
                           });

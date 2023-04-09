@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,13 +31,32 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         // meilleure manière de gérer les routes , on les déclares toutes ici
         switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (context) => const HomePage());
+          // case '/':
+          //   return MaterialPageRoute(builder: (context) => const HomePage());
+
+          case '/login':
+            return MaterialPageRoute(
+                builder: (context) => const MyHomePage(title: "caca"));
+
+          case '/dashboard':
+            Map<String, String> args =
+                settings.arguments as Map<String, String>;
+            String email = args['email']!;
+            String password = args['password']!;
+
+            return MaterialPageRoute(
+                builder: (context) => DashBoardView(
+                      mail: email,
+                      password: password,
+                    ));
 
           case '/chatPage':
-            String currentUser = settings.arguments
-                as String; // on récupère les arguments passés à la route dans la navigation
-            String otherUser = settings.arguments as String;
+            Map<String, String> args =
+                settings.arguments as Map<String, String>;
+            String currentUser = args[
+                "currentUserId"]!; // on récupère les arguments passés à la route dans la navigation
+            String otherUser = args[
+                "selectedUserId"]!; // fait bien attention a la syntaxe tres sensible a la casse le nom a mettre dans args c'est celui que tu as mis dans la navigation (pushNamed)
 
             return MaterialPageRoute(
                 builder: (context) => ChatPage(
@@ -225,10 +245,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     monUtilisateur = value;
                   });
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return DashBoardView(
-                        mail: mail.text, password: password.text);
-                  }));
+                  Navigator.pushNamed(context, "/dashboard", arguments: {
+                    "email": mail.text,
+                    "password": password.text
+                  });
                 }).catchError((onError) {
                   //si on constate une erreur
                   popUp();
@@ -241,11 +261,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     monUtilisateur = value;
                   });
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return DashBoardView(
-                        mail: mail.text, password: password.text);
-                  }));
+                  Navigator.pushNamed(context, "/dashboard", arguments: {
+                    "email": mail.text,
+                    "password": password.text
+                  });
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return DashBoardView(
+                  //       mail: mail.text, password: password.text);
+                  // }));
                 }).catchError((onError) {
+                  print(onError);
                   popUp();
                 });
               }
